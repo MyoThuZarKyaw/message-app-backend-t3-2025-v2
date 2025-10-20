@@ -54,3 +54,23 @@ class SendMessageAPITest(APITestCase):
         response = self.client.post(self.url, self.invalid_payload, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('content', response.data)
+
+class LoginAPITest(APITestCase):
+    def setUp(self):
+        # Create test users
+        self.user = User.objects.create_user(username='alice', password='password123')
+
+        # URL of the login view
+        self.url = reverse('login')
+
+    def test_login_success(self):
+        """Test that a valid login is created successfully"""
+        response = self.client.post(self.url, {'username': 'alice', 'password': 'password123'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('token', response.data)
+
+    def test_login_invalid(self):
+        """Test that invalid data returns 400"""
+        response = self.client.post(self.url, {'username': 'alice', 'password': 'wrongpassword'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('no token', response.data)

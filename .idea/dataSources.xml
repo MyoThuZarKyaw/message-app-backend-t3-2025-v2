@@ -29,5 +29,12 @@
       <jdbc-url>jdbc:mysql://tcp.us-east-1.clawcloudrun.com:41330</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="message_app_v2" uuid="b3dd4c17-9371-409d-95d2-0176a952499e">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ep-sweet-lake-adst43og-pooler.c-2.us-east-1.aws.neon.tech:5432/neondb</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
