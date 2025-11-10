@@ -38,8 +38,8 @@ jobs:
 
       - name: Install SSH key
         run: |
-          echo "${{ secrets.EC2_KEY }}" > key.pem
-          chmod 600 key.pem
+          echo "${{ secrets.EC2_KEY }}" > SOFT806_EC2_Key.pem
+          chmod 600 SOFT806_EC2_Key.pem
           mkdir -p ~/.ssh
           # Avoid host key prompt on first connect
           printf "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
