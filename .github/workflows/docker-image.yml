@@ -32,17 +32,20 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+
     steps:
       - name: Checkout (not strictly required for SSH-only deploy)
         uses: actions/checkout@v4
 
+
       - name: Install SSH key
         run: |
-          echo "${{ secrets.EC2_KEY }}" > SOFT806_EC2_Key.pem
-          chmod 600 SOFT806_EC2_Key.pem
+          echo "${{ secrets.EC2_KEY }}" > key.pem
+          chmod 600 key.pem
           mkdir -p ~/.ssh
           # Avoid host key prompt on first connect
           printf "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+
       - name: Deploy on EC2
         run: | 
           ssh -i key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} \
@@ -63,3 +66,4 @@ jobs:
             sudo docker compose run --rm web python manage.py migrate --noinput || true
             sudo docker compose ps
           EOSSH
+
